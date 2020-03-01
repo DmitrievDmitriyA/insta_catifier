@@ -4,7 +4,7 @@ import face_recognition
 from PIL import Image
 from pathlib import Path
 
-originalCatImage = Image.open('resources\cat.png').convert('RGBA')
+originalCatImage = Image.open('resources\\cat.png').convert('RGBA')
 sourceFolder = 'insta_sources\\'
 resultFolder = 'catified\\'
 ratio = 1.4
@@ -33,7 +33,7 @@ def add_cats(userName):
 
         if len(faces):
             background = Image.open(filePath)
-            # Draw draw cats 
+            # Draw cats 
             for (x, y, w, h) in faces:
                 # Prepare cat image
                 foreground = resize_cat_image(h)

@@ -2,6 +2,7 @@
 .vscode
 venv
 __pycache__
+*.log
 
 # Project
 insta_sources

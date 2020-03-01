@@ -23,12 +23,18 @@ def add_cats(userName):
     resultUserFolder = resultFolder + userName + '\\'
     Path(resultUserFolder).mkdir(parents=True, exist_ok=True) # Create a folder for results if it doesn't exist
 
+    totalAmountOfFiles = len(os.listdir(sourceUserFolder))
+    filesCount = 0
+
     for filename in os.listdir(sourceUserFolder):
+        filesCount += 1
+        print(f"In progress: {filesCount} of {totalAmountOfFiles}")
         if not filename.lower().endswith(('.png', '.jpg', '.jpeg')):
             continue
 
         filePath = sourceUserFolder + filename
-        print(filename)
+        if debugMode:
+            print(filename)
 
         # Find faces
         faces = face_recognition.recognize_faces(filePath)
@@ -62,6 +68,8 @@ def main():
         pass
     
     add_cats(userName)
+
+    print("Done!")
 
 if __name__ == '__main__':
     main()

@@ -25,7 +25,7 @@ def add_cats(userName):
 
     for filename in os.listdir(sourceUserFolder):
         if not filename.lower().endswith(('.png', '.jpg', '.jpeg')):
-            break
+            continue
 
         filePath = sourceUserFolder + filename
         print(filename)
@@ -48,15 +48,18 @@ def add_cats(userName):
                 if debugMode:
                     draw = ImageDraw2.Draw(background)
                     draw.rectangle([x, y, x+w, y+h], ImageDraw2.Pen('red', width=4))
-                    
+
             background.save(resultUserFolder + filename, format='JPEG')
 
 def main():
     global debugMode
     userName = sys.argv[1]
 
-    if sys.argv[2] == '-d':
-        debugMode = True
+    try:
+        if sys.argv[2] == '-d':
+            debugMode = True
+    except:
+        pass
     
     add_cats(userName)
 

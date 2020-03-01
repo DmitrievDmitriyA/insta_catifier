@@ -1,0 +1,8 @@
+# Infrastructure
+.vscode
+venv
+__pycache__
+
+# Project
+insta_sources
+catified

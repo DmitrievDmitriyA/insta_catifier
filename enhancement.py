@@ -1,16 +1,10 @@
-import sys
 import os
 import face_recognition
-import scraping
 from PIL import Image, ImageDraw2
 from pathlib import Path
 
 originalCatImage = Image.open('resources\\cat.png').convert('RGBA')
-sourceFolder = 'insta_sources\\'
-resultFolder = 'catified\\'
 ratio = 1.4
-
-debugMode = False
 
 def resize_cat_image(height):
     factor = height / originalCatImage.height * ratio
@@ -19,7 +13,7 @@ def resize_cat_image(height):
     return originalCatImage.resize((width, height))
 
 
-def add_cats(userName, sourceUserFolder, resultUserFolder):
+def add_cats(debugMode, userName, sourceUserFolder, resultUserFolder):
     Path(resultUserFolder).mkdir(parents=True, exist_ok=True) # Create a folder for results if it doesn't exist
 
     totalAmountOfFiles = len(os.listdir(sourceUserFolder))
@@ -55,25 +49,3 @@ def add_cats(userName, sourceUserFolder, resultUserFolder):
                     draw.rectangle([x, y, x+w, y+h], ImageDraw2.Pen('red', width=4))
 
             background.save(resultUserFolder + filename, format='JPEG')
-
-def main():
-    global debugMode
-
-    # Parse command arguments
-    userName = sys.argv[1]
-    try:
-        if sys.argv[2] == '--debug':
-            debugMode = True
-    except:
-        pass
-    
-    sourceUserFolder = sourceFolder + userName + '\\'
-    resultUserFolder = resultFolder + userName + '\\'
-
-    scraping.scrape_photos(sourceUserFolder)
-    add_cats(userName, sourceUserFolder, resultUserFolder)
-
-    print("Done!")
-
-if __name__ == '__main__':
-    main()

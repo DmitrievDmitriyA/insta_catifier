@@ -1,6 +1,7 @@
 import sys
 import os
 import face_recognition
+import scraping
 from PIL import Image, ImageDraw2
 from pathlib import Path
 
@@ -18,9 +19,7 @@ def resize_cat_image(height):
     return originalCatImage.resize((width, height))
 
 
-def add_cats(userName):
-    sourceUserFolder = sourceFolder + userName + '\\'
-    resultUserFolder = resultFolder + userName + '\\'
+def add_cats(userName, sourceUserFolder, resultUserFolder):
     Path(resultUserFolder).mkdir(parents=True, exist_ok=True) # Create a folder for results if it doesn't exist
 
     totalAmountOfFiles = len(os.listdir(sourceUserFolder))
@@ -59,15 +58,20 @@ def add_cats(userName):
 
 def main():
     global debugMode
-    userName = sys.argv[1]
 
+    # Parse command arguments
+    userName = sys.argv[1]
     try:
-        if sys.argv[2] == '-d':
+        if sys.argv[2] == '--debug':
             debugMode = True
     except:
         pass
     
-    add_cats(userName)
+    sourceUserFolder = sourceFolder + userName + '\\'
+    resultUserFolder = resultFolder + userName + '\\'
+
+    scraping.scrape_photos(sourceUserFolder)
+    add_cats(userName, sourceUserFolder, resultUserFolder)
 
     print("Done!")
 

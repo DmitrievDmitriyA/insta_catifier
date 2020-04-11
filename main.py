@@ -1,6 +1,6 @@
 import sys
-import scraping
-import enhancement
+import backend.scraping as scraping
+import backend.enhancement as enhancement
 
 def main():
     sourceFolder = 'insta_sources\\'

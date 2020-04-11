@@ -1,5 +1,5 @@
 import os
-import backend.face_recognition as face_recognition
+import catifier.face_recognition as face_recognition
 from PIL import Image, ImageDraw2
 from pathlib import Path
 

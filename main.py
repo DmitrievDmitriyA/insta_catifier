@@ -1,6 +1,6 @@
 import sys
-import backend.scraping as scraping
-import backend.enhancement as enhancement
+import catifier.scraping as scraping
+import catifier.enhancement as enhancement
 
 def main():
     sourceFolder = 'insta_sources\\'

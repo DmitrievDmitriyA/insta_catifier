@@ -2,8 +2,11 @@ import os
 import catifier.face_recognition as face_recognition
 from PIL import Image, ImageDraw2
 from pathlib import Path
+from pkg_resources import resource_filename
 
-originalCatImage = Image.open('resources\\cat.png').convert('RGBA')
+
+catImage = resource_filename(__name__, 'resources\\cat.png')
+originalCatImage = Image.open(catImage).convert('RGBA')
 ratio = 1.4
 
 def resize_cat_image(height):

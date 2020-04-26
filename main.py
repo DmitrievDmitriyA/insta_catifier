@@ -3,8 +3,8 @@ import catifier.scraping as scraping
 import catifier.enhancement as enhancement
 
 def main():
-    sourceFolder = 'insta_sources\\'
-    resultFolder = 'catified\\'
+    sourceFolder = 'sources\\'
+    resultFolder = 'results\\'
 
     debugMode = False
 

@@ -5,8 +5,8 @@ __pycache__
 *.log
 
 # Project
-insta_sources
-catified
+sources
+results
 
 #package creation
 *egg-info*

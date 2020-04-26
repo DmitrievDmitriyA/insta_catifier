@@ -12,7 +12,7 @@ After that the script is ready to go:
 execute.bat <instagram profile name>
 ```
 
-The script loads scraped Instagram photos to ```insta_sources``` folder and catified photos to ```catified``` folder.
+The script loads scraped Instagram photos to ```sources``` folder and catified photos to ```results``` folder.
 
 ### Example
 

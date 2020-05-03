@@ -1,4 +1,4 @@
-import os
+import os, ntpath
 import catifier.face_recognition as face_recognition
 from PIL import Image, ImageDraw2
 from pathlib import Path
@@ -25,8 +25,13 @@ def _create_folder(sourceUserFolder, resultUserFolder):
     return len(os.listdir(sourceUserFolder))
 
 
-def _modify_source(sourceUserFolder, filename, resultUserFolder):
-        filePath = sourceUserFolder + filename
+def _path_leaf(path):
+    head, tail = ntpath.split(path)
+    return tail or ntpath.basename(head)
+
+
+def _modify_source(filePath, resultUserFolder):
+        filename = _path_leaf(filePath)
 
         # Find faces
         faces = face_recognition.recognize_faces(filePath)
@@ -53,19 +58,25 @@ def _modify_source(sourceUserFolder, filename, resultUserFolder):
         return {'resultPath': resultPath, 'hasFaces': bool(len(faces)) }
 
 
-def add_cats_and_return_paths(sourceUserFolder, resultUserFolder, resultsNumber):
+def add_cats_and_return_paths(sourceUserFolder, resultUserFolder, resultsNumber=float('inf')):
     totalAmountOfFiles = _create_folder(sourceUserFolder, resultUserFolder)
 
     filesCount = 0
     facedPhotos = 0
     results = []
 
-    for filename in os.listdir(sourceUserFolder):
+    # Access file in a specified directory and sort them by modification time
+    # It's needed in order to return the latest photos
+    sourceFiles = os.listdir(sourceUserFolder)
+    sourceFilePaths = [sourceUserFolder + filename for filename in sourceFiles]
+    sourceFilePaths.sort(key=os.path.getmtime, reverse=True)
+
+    for sourceFilePath in sourceFilePaths:
         filesCount += 1
         print(f"In progress: {filesCount} of {totalAmountOfFiles}")
-        if not filename.lower().endswith(('.png', '.jpg', '.jpeg')):
+        if not sourceFilePath.lower().endswith(('.png', '.jpg', '.jpeg')):
             continue
-        result = _modify_source(sourceUserFolder, filename, resultUserFolder)
+        result = _modify_source(sourceFilePath, resultUserFolder)
 
         # If photo contains no faces then check if result is not full yet
         # and append result in the end
@@ -94,9 +105,12 @@ def add_cats(sourceUserFolder, resultUserFolder):
 
     filesCount = 0
 
-    for filename in os.listdir(sourceUserFolder):
+    sourceFiles = os.listdir(sourceUserFolder)
+    sourceFilePaths = [sourceUserFolder + filename for filename in sourceFiles]
+
+    for sourceFilePath in sourceFilePaths:
         filesCount += 1
         print(f"In progress: {filesCount} of {totalAmountOfFiles}")
-        if not filename.lower().endswith(('.png', '.jpg', '.jpeg')):
+        if not sourceFilePath.lower().endswith(('.png', '.jpg', '.jpeg')):
             continue
-        _modify_source(sourceUserFolder, filename, resultUserFolder)
+        _modify_source(sourceFilePath, resultUserFolder)

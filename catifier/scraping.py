@@ -4,6 +4,7 @@ import argparse
 import textwrap
 from instagram_scraper import InstagramScraper
 
+
 def scrape_photos(sourceUserFolder):
     parser = argparse.ArgumentParser(
         description="instagram-scraper scrapes and downloads an instagram user's photos and videos.",
@@ -116,15 +117,13 @@ def scrape_photos(sourceUserFolder):
         args.filter_locations = InstagramScraper.get_values_from_file(args.filter_location_file)
     elif args.filter_location:
         args.filter_locations = InstagramScraper.parse_delimited_str(','.join(args.filter_location))
-        
+
     if args.media_types and len(args.media_types) == 1 and re.compile(r'[,;\s]+').findall(args.media_types[0]):
         args.media_types = InstagramScraper.parse_delimited_str(args.media_types[0])
 
     if args.retry_forever:
         global MAX_RETRIES
         MAX_RETRIES = sys.maxsize
-
-    
 
     scraper = InstagramScraper(**vars(args))
 

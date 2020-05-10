@@ -1,5 +1,5 @@
-call create_package.bat
+.\create_package.ps1
 pip install virtualenv
 virtualenv venv --system-site-packages
-call .\venv\Scripts\activate.bat
+.\venv\Scripts\activate.ps1
 pip install .

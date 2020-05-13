@@ -5,7 +5,7 @@ from pathlib import Path
 from pkg_resources import resource_filename
 
 
-catImage = resource_filename(__name__, 'resources\\cat.png')
+catImage = resource_filename(__name__, 'resources/cat.png')
 originalCatImage = Image.open(catImage).convert('RGBA')
 ratio = 1.4
 

@@ -4,14 +4,14 @@ import catifier.enhancement as enhancement
 
 
 def main():
-    sourceFolder = 'sources\\'
-    resultFolder = 'results\\'
+    sourceFolder = 'sources/'
+    resultFolder = 'results/'
 
     # Parse command arguments
     userName = sys.argv[1]
 
-    sourceUserFolder = sourceFolder + userName + '\\'
-    resultUserFolder = resultFolder + userName + '\\'
+    sourceUserFolder = sourceFolder + userName + '/'
+    resultUserFolder = resultFolder + userName + '/'
 
     scraping.scrape_photos(sourceUserFolder)
     enhancement.add_cats(sourceUserFolder, resultUserFolder)
